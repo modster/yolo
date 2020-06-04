@@ -4,7 +4,7 @@ const Binance = require('node-binance-api');
 require('dotenv').config();
 
 const port = 80
-const min = 0.0016
+const min = 0.001
 
 // B i n a n c e - N o d e - A P I   O p t i o n s
 const binance = new Binance().options({
@@ -35,57 +35,34 @@ function getBalances(req, res, next) {
   });
 }
 
-app.use(getBalances);
-app.use(btcUsdtPrice);
+app.use(getBalances);  //----------------------------------------!
+app.use(btcUsdtPrice); //----------------------------------------!
 
 app.post('/', function (req, res, next) {
   let { body } = req;
-  console.log(body);
-  console.log(`BTC Current Price: ${req.btcUsdtPrice}`);
-  console.log(`USDT Available Balance: ${req.usdtBalance}`);
-  console.log(`BTC Available Balance: ${req.btcBalance}`);
-  let ticker = body.ticker;
-  if( body.direction == 'buy' ) {
-    let y = parseFloat(req.btcUsdtPrice);
-    let x = parseFloat(req.usdtBalance).toFixed(2);
-    let price = parseFloat(body.price);
-    let stopPrice = parseFloat(body.stop);
-    let quantity = x/y * 1000;
-    quantity = Math.floor(quantity).toFixed(8);
-    quantity = quantity / 1000;
-    //console.log(`Price : ${price}  Stop: ${stopPrice}  Quantity: ${quantity}  Ticker: ${ticker}`)
-    if(quantity >= min) {
-      console.log(`Buy: ${quantity} BTC`);
-      binance.marketBuy('BTCUSDT', quantity);
-      /*binance.buy("BTCUSDT", quantity, price, {stopPrice: stopPrice, type: type});
-      binance.marketBuy("BTCUSDT", quantity, (error, response) => {
-        // if(error) => console.log(error); 
-        console.info("Market Buy response", response);
-        console.info("order id: " + response.orderId);
 
-      }
-      */
+  if( body.direction == 'buy' ) {
+    let max = req.usdtBalance
+      binance.marketBuy('BTCUSDT', max);//----get usdt balance------------------------------------!
     }
-  }
+
   else if( body.direction == 'sell' ) {
-    if(req.btcBalance >= min) {
-      console.log(`Sell: ${min} BTC`);
-      binance.marketSell('BTCUSDT', min);
-    }
+    binance.marketSell('BTCUSDT', min);
   }
 
   else if( body.direction == 'stop' ) {
     let max = req.btcBalance
     console.log(`Stop: ${max} BTC`);
-    binance.marketSell('BTCUSDT', max);
-
+    binance.marketSell('BTCUSDT', max);//----------------------------------------!
   }
+
   else {
     console.log(`${body} ERROR`);
   }
+
   console.log(body)
   res.status(200).end();
-})
+});
 
 app.listen(port, function(){
   console.log(`listening on *:${port}`);
