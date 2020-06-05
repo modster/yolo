@@ -19,9 +19,9 @@ require("dotenv").config();
         },
       });
     // ---------------------------------------------------------------------- //
-    // F u n c t i o n 
-    let binanceBalance = await exchange.fetchBalance();
-    console.log(binanceBalance);
+    // get balance
+    const balance = await ocean.fetchBalanceByCode("REP");
+    console.log("REP balance: ", balance);
     // ---------------------------------------------------------------------- //
   } catch (error) {
     console.log(error);
