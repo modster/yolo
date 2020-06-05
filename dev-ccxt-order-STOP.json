@@ -1,0 +1,9 @@
+{
+  "symbol": "BTCUSDT",
+  "side": "SELL",
+  "type": "STOP_LOSS",
+
+
+
+  STOP_LOSS and TAKE_PROFIT will execute a MARKET order when the stopPrice is reached.
+  

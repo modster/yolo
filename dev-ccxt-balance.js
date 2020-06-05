@@ -15,8 +15,9 @@ require("dotenv").config();
         timeout: 30000,
         enableRateLimit: true,
       });
+    // F e t c h  B T C  B a l a n c e 
     let binanceBalance = await exchange.fetchBalance();
-    console.log(binanceBalance);
+    console.log(binanceBalance.BTC.free);
   } catch (error) {
     console.log(error);
   }
