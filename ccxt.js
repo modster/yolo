@@ -7,7 +7,6 @@ require('dotenv').config();
 const port = 80  // change this to process.env.PORT || 80 for serverless
 
 // I n s t a n t i a t e  E x c h a n g e 
-// (see snippets)
 const exchangeId = 'binance'
     , exchangeClass = ccxt[exchangeId]
     , exchange = new exchangeClass ({
