@@ -29,9 +29,13 @@
   },
   "homepage": "https://github.com/modster/yolo#readme",
   "dependencies": {
-    "ccxt": "^1.29.20",
+    "ansicolor": "^1.1.93",
+    "as-table": "^1.0.55",
+    "asciichart": "^1.5.20",
+    "ccxt": "^1.29.21",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "ololog": "^1.1.156"
   }
 }

@@ -1,12 +1,12 @@
 var express = require('express')
 var app = express()
-const Binance = require('node-binance-api');
+const ccxt = require ('ccxt')
 require('dotenv').config();
 
-const port = 80
-const min = 0.001
+// V a r i a b l e s
+const port = 80  // change this to process.env.PORT || 80 for serverless
 
-// B i n a n c e - N o d e - A P I   O p t i o n s
+// I n s t a n t i a t e  E x c h a n g e 
 const binance = new Binance().options({
   APIKEY: process.env.BINANCE_APIKEY,
   APISECRET: process.env.BINANCE_SECRET,
