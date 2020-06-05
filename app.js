@@ -13,7 +13,7 @@ const binance = new Binance().options({
   useServerTime: true,
   recvWindow: 4000,
   verbose: false,
-  test: true,
+  test: true,//----------------------------------------! test mode
   reconnect: true
 });
 
