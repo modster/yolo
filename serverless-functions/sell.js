@@ -1,5 +1,8 @@
 "use strict";
+
+/*          F i r e B a s e   S e r v e r l e s s   F u n c t i o n          */
 /*~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~($)~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~*/
+
 // M o d u l e s :
 const ccxt = require("ccxt");
 require("dotenv").config();
@@ -26,23 +29,19 @@ let symbol = 'BTCUSDT';
     
     // F e t c h  B T C  B a l a n c e 
     let binanceBalance = await exchange.fetchBalance();
-    console.log(binanceBalance.BTC.free);
-    let amount = binanceBalance.BTC.free;
-    let lower1 = req.stopLoss;
-    let params = {
-      'type': 'STOP_LOSS',
-      'stopPrice': lower1,
-    }
+    let amount = binanceBalance.BTC.free * 0.01;
+    console.log(`BTC Available Balance: ${binanceBalance.BTC.free}`);
 
     // P l a c e  O r d e r
-    const placeResult = await binance.createMarketSellOrder (symbol, amount[, params])
+    const placeResult = await binance.createMarketSellOrder(symbol, amount);
     const id = placeResult["id"];
-    console.log("result of placing order: ", placeResult);
+    console.log('Binance Response: ', placeResult);
 
-  // process.exit();
   } catch (error) {
     console.log(error);
   }
+  // process.exit();
 })();
+
 /*~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~($)~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~*/
 

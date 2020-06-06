@@ -7,9 +7,9 @@ require("dotenv").config();
 // V a r i a b l e s :
 let symbol = 'BTCUSDT';
 
-// I n s t a n t i a t e  T h e  E x c h a n g e :
 (async () => {
   try {
+    // I n s t a n t i a t e  T h e  E x c h a n g e :
     const exchangeId = "binance",
       exchangeClass = ccxt[exchangeId],
       exchange = new exchangeClass({
@@ -20,24 +20,24 @@ let symbol = 'BTCUSDT';
         timeout: 30000,
         enableRateLimit: true,
         options: {
-          createMarketBuyOrderRequiresPrice: false,
+          createMarketBuyOrderRequiresPrice: false,// <<------------------------?
         },
       });
     
-    // F e t c h  B T C  B a l a n c e 
+    // F e t c h  U S D T  B a l a n c e 
     let binanceBalance = await exchange.fetchBalance();
-    console.log(binanceBalance.BTC.free);
-    let amount = binanceBalance.BTC.free;
+    let amount = binanceBalance.USDT.free;
     let lower1 = req.stopLoss;
     let params = {
       'type': 'STOP_LOSS',
       'stopPrice': lower1,
     }
+    console.log(`USDT Available Balance: ${binanceBalance.USDT.free}`);
 
     // P l a c e  O r d e r
-    const placeResult = await binance.createMarketSellOrder (symbol, amount[, params])
+    const placeResult = await binance.createMarketBuyOrder (symbol, amount[, params])
     const id = placeResult["id"];
-    console.log("result of placing order: ", placeResult);
+    console.log('Binance Response: ', placeResult);
 
   // process.exit();
   } catch (error) {
