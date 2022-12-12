@@ -34,7 +34,7 @@
     "asciichart": "^1.5.20",
     "ccxt": "^1.29.21",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "nodemon": "^2.0.4",
     "ololog": "^1.1.156"
   }
